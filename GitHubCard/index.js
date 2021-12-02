@@ -9,8 +9,10 @@ import axios from 'axios';
 axios.get('https://api.github.com/users/justinrivera47')
 .then(response => {
   console.log(response.data);
+  cardMaker(response.data)
 }).catch(err => {
-  console.log(err);
+  const error = document.createElement('p');
+  error.textContent = 'Error: ' + err.message;
 })
 
 /*
@@ -73,6 +75,36 @@ function createCard(obj){
   const following = document.createElement('p');
   const bio = document.createElement('p');
   //creating class
+  card.classList.add('card');
+  img.src = obj.avatar_url;
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+  name.textContent = obj.name;
+  userName.textContent = obj.name;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = 'Profile: '
+  address.href = `${obj.url}`;
+  address.textContent = `${obj.url}`;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+  //appending children
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(address);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  //returning card
+  const entryCard = document.querySelector('.cards');
+  entryCard.appendChild(createCard);
+  
+  return card
 }
 
 /*
