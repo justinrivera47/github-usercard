@@ -6,7 +6,9 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/justinrivera47')
+const entryCard = document.querySelector('.cards');
+
+axios.get(`https://api.github.com/users/justinrivera47`)
 .then(response => {
   console.log(response.data);
   createCard(response.data);
@@ -39,7 +41,18 @@ axios.get('https://api.github.com/users/justinrivera47')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+followersArray.forEach(followersLogin => {
+  axios.get(`https://api.github.com/users/${followersLogin}`)
+  .then(data => {
+    entryCard.appendChild(createCard(data.data))
+  })
+  .catch(error => console.log(error))
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -102,9 +115,8 @@ function createCard(obj){
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
   //returning card
-  const entryCard = document.querySelector('.cards');
-  entryCard.appendChild(card);
   
+  entryCard.appendChild(card);
   return entryCard
 }
 
