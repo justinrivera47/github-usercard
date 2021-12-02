@@ -9,7 +9,7 @@ import axios from 'axios';
 axios.get('https://api.github.com/users/justinrivera47')
 .then(response => {
   console.log(response.data);
-  cardMaker(response.data)
+  createCard(response.data);
 }).catch(err => {
   const error = document.createElement('p');
   error.textContent = 'Error: ' + err.message;
@@ -85,6 +85,7 @@ function createCard(obj){
   location.textContent = `Location: ${obj.location}`;
   profile.textContent = 'Profile: '
   address.href = `${obj.url}`;
+  address.target = '_blank';
   address.textContent = `${obj.url}`;
   followers.textContent = `Followers: ${obj.followers}`;
   following.textContent = `Following: ${obj.following}`;
@@ -102,9 +103,9 @@ function createCard(obj){
   cardInfo.appendChild(bio);
   //returning card
   const entryCard = document.querySelector('.cards');
-  entryCard.appendChild(createCard);
+  entryCard.appendChild(card);
   
-  return card
+  return entryCard
 }
 
 /*
